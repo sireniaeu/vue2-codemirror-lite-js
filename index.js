@@ -1,5 +1,5 @@
-import CodeMirror from 'codemirror/lib/codemirror.js'
-import CmComponent from './codemirror.vue'
+const CodeMirror = require('codemirror/lib/codemirror.js')
+const CmComponent = require('./codemirror.vue')
 
 let Codemirror = {
   CodeMirror: CodeMirror,
