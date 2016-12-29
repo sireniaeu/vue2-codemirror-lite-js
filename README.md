@@ -1,6 +1,8 @@
 # Vue2 Codemirror Lite
-[CodeMirror](http://codemirror.net/) component for Vue.js 2.x. [See demo](https://danmindru.github.io/vue2-codemirror-lite-js).
+####[CodeMirror](http://codemirror.net/) component for Vue.js 2.x. 
+<a href="https://danmindru.github.io/vue2-codemirror-lite-js"><img src="https://cloud.githubusercontent.com/assets/1515742/21546469/9d452e38-cde7-11e6-8996-758e0ad9ff7c.jpg" alt="Vue2 Codemirror for JS screenshot"/></a>
 
+####[See demo](https://danmindru.github.io/vue2-codemirror-lite-js)
 
 ### Motivation
 For applications that only use CodeMirror for JavaScript, the bundle size can seriously be decreased by eliminating some of the features, themes and modes. 
