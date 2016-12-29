@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "serve": "node_modules/.bin/webpack-dev-server --open",
-    "build": "webpack --config webpack.config.js --watch"
+    "build": "webpack --config webpack.config.js --watch",
+    "deploy": "git push origin `git subtree split --prefix demo master`:gh-pages --force"
   },
   "repository": {
     "type": "git",
