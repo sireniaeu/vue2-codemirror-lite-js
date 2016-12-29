@@ -48,8 +48,6 @@ export default {
 
 Usage in template
 ```vue
-<codemirror></codemirror>
-
 <codemirror
     :code="code"
     :options="{
