@@ -3,13 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>Vue2 CodeMirror Lite for JS</title>
-    <style> [v-cloak] { display:none; } body { padding: 30px; font-family: Helvetica, Arial, sans-serif; font-weight: 300; } h1 { font-weight: 300; }</style>
+    <style> [v-cloak] { display:none; } body { padding: 30px; font-family: Helvetica, Arial, sans-serif; font-weight: 300; } h1, h2, h3 { font-weight: 300; }</style>
   </head>
   <body>
     <h1>Vue2 CodeMirror component for JavaScript with linting</h1>
     <main v-cloak id="app">
       <codemirror :code="code" @changed="changed" :options="options"></codemirror>
     </main>
+
+    <h2>Features / base config</h2>
+    <ul>
+      <li>JavaScript only mode (not configurable)</li>
+      <li>lint via JSHINT (bundled, not configurable)</li>
+      <li>line numbers, line wrapping</li>
+      <li>dark theme only (`base16-dark`, [see demo](https://danmindru.github.io/vue2-codemirror-lite-js).)</li>
+      <li>size: ~255kb / ~84kb gzipped</li>
+      <li>accepts additional CodeMirror options ([see some here](http://codemirror.net/doc/manual.html)), expect for mode, theme & those that require addons.</li>
+    </ul>
+
+    <h3>
+      <a href="https://github.com/danmindru/vue2-codemirror-lite-js">Github</a>. MIT.
+    </h3>
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="./bundle.js"></script>
