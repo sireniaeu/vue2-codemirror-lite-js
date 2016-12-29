@@ -1,20 +1,22 @@
 {
-  "name": "vue-codemirror",
-  "version": "2.1.5",
-  "description": "Codemirror component for Vue.js(1.x ~ 2.x)",
+  "name": "vue2-codemirror-lite",
+  "version": "2.2.0",
+  "description": "Lite Codemirror component for Vue.js 2.x",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/surmon-china/vue-codemirror.git"
+    "url": "https://github.com/danmindru/vue2-codemirror-lite"
   },
   "keywords": [
     "vue-codemirror",
     "vue codemirror",
     "codemirror",
-    "vue"
+    "vue",
+    "vue codemirror lite",
+    "vue-codemirror-lite"
   ],
   "author": {
     "name": "Surmon",
@@ -23,9 +25,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/surmon-china/vue-codemirror/issues"
+    "url": "https://github.com/danmindru/vue2-codemirror-lite/issues"
   },
-  "homepage": "https://github.com/surmon-china/vue-codemirror#readme",
+  "homepage": "https://github.com/danmindru/vue2-codemirror-lite#readme",
   "dependencies": {
     "codemirror": "^5.19.0"
   }
