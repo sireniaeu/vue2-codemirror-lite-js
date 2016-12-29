@@ -1,7 +1,7 @@
 const CodeMirror = require('codemirror/lib/codemirror.js')
 const CmComponent = require('./codemirror.vue')
 
-let Codemirror = {
+var Codemirror = {
   CodeMirror: CodeMirror,
   codemirror: CmComponent,
   install: function(Vue) {
