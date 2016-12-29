@@ -1,11 +1,7 @@
-/**
- * Vue-CodeMirror
- * @author Surmon.me
- */
+import CodeMirror from 'codemirror/lib/codemirror.js'
+import CmComponent from './codemirror.vue'
 
-var CodeMirror = require('codemirror/lib/codemirror.js')
-var CmComponent = require('./codemirror.vue')
-var Codemirror = {
+let Codemirror = {
   CodeMirror: CodeMirror,
   codemirror: CmComponent,
   install: function(Vue) {
