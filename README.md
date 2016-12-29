@@ -64,5 +64,20 @@ Usage in template
 
 There's also a [code example](https://github.com/danmindru/vue2-codemirror-lite-js/tree/master/demo/index.html) available in the source.
 
-### Contribute
+### Developing
+There's a simple webpack config to get you started. 
+
+Build / watch
+```
+npm run build
+```
+
+Run the example
+```
+npm run serve
+```
+
+Feel free to contribute to the build config and make it better :) 
+
+### Contributing
 Contributions are welcome for additional options, themes and modes that don't increase the bundle size. Ideally, if you want to contribute split your code.

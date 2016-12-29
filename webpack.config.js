@@ -39,7 +39,7 @@ module.exports = {
       }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new BundleAnalyzerPlugin()
+    // new BundleAnalyzerPlugin() // un-comment to generate bundle report
   ],
   devServer: {
     contentBase: path.join(__dirname, 'demo'),
