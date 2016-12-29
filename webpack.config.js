@@ -7,7 +7,8 @@ module.exports = {
   output: {
     filename: './demo/bundle.js',
     libraryTarget: 'var',
-    library: 'CodeMirror'
+    library: 'CodeMirror',
+    chunkFilename: './demo/[id].js'
   },
   module: {
     loaders: [
@@ -42,7 +43,7 @@ module.exports = {
     // new BundleAnalyzerPlugin() // un-comment to generate bundle report
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'demo'),
+    contentBase: path.join(__dirname, './demo'),
     compress: true,
     port: 9000
   }

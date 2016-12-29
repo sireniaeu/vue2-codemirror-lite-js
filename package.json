@@ -4,8 +4,8 @@
   "description": "Lite Codemirror component for JavaScript code / Vue.js 2.x",
   "main": "index.js",
   "scripts": {
-    "serve": "webpack --config webpack.config.js --watch",
-    "build": "node_modules/.bin/webpack-dev-server --open"
+    "serve": "node_modules/.bin/webpack-dev-server --open",
+    "build": "webpack --config webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
