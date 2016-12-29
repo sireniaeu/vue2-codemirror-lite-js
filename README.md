@@ -17,7 +17,7 @@ Most things are pre-configured, but it accepts basic CodeMirror options (see [Co
 - line numbers, line wrapping
 - dark theme only (`base16-dark`, [see demo](https://danmindru.github.io/vue2-codemirror-lite-js).)
 - size: ~255kb / ~84kb gzipped
-- accepts additional CodeMirror options ([see some here](http://codemirror.net/doc/manual.html)), expect for mode, theme & those that require addons.
+- accepts additional CodeMirror options ([see some here](http://codemirror.net/doc/manual.html)), except for mode, theme & those that require addons.
 
 ### Getting started
 Installing
