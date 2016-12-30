@@ -6,19 +6,20 @@
     <style> [v-cloak] { display:none; } body { padding: 30px; font-family: Helvetica, Arial, sans-serif; font-weight: 300; } h1, h2, h3 { font-weight: 300; }</style>
   </head>
   <body>
-    <h1>Vue2 CodeMirror component for JavaScript with linting</h1>
+    <h1>Lightweight Vue2 CodeMirror plugin</h1>
+    <p>Pre-configured for JavaScript mode only, with linting & gutter errors / warnings on.</p>
     <main v-cloak id="app">
       <codemirror :code="code" @changed="changed" :options="options"></codemirror>
     </main>
 
-    <h2>Features / base config</h2>
+    <h2>What's inside</h2>
     <ul>
       <li>JavaScript only mode (not configurable)</li>
       <li>lint via JSHINT (bundled, not configurable)</li>
-      <li>line numbers, line wrapping</li>
       <li>dark theme only (`base16-dark`, <a href="https://danmindru.github.io/vue2-codemirror-lite-js">see demo</a>.)</li>
-      <li>size: ~255kb / ~84kb gzipped</li>
+      <li>line numbers, line wrapping</li>
       <li>accepts additional CodeMirror options (<a href="http://codemirror.net/doc/manual.html">see some here</a>), except for mode, theme & those that require addons.</li>
+      <li>size: ~255kb / ~84kb gzipped</li>
     </ul>
 
     <h3>
