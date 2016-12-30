@@ -30,13 +30,22 @@
     <script src="./bundle.js"></script>
     <script src="./0.js"></script>
     <script>
+      var code = "function invariance(o) { \n" +
+        "  var p = o.p; \n" +
+        "  o.p = null; \n" +
+        "  return p; \n" +
+        "} \n\n" +
+        "var subtype_p = p \n" +
+        "var res = invariance(subtype_p); \n\n" +
+        "return res'` \n"
+
       Vue.use(CodeMirror)
 
       var app = new Vue({
         el: '#app',
         data: function () {
           return {
-            code: '',
+            code: code,
             options: {
               tabSize: 2,
               lineNumbers: true,
