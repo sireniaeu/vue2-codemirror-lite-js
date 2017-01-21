@@ -65,14 +65,20 @@ Usage in template
        gutters: ['CodeMirror-linenumbers', 'CodeMirror-lint-markers'],
        lint: true
     }"
+    :lintOptions="{
+
+    }"
     @changed="yourCodeChangeMethod">
 </codemirror>
 ```
 
+Lint options are equivalent to JSHINT options (or what you'd normally put in .jshintrc). See all the options [here](https://github.com/jshint/jshint/blob/master/examples/.jshintrc) 
+
+
 There's also a [code example](https://github.com/danmindru/vue2-codemirror-lite-js/tree/master/demo/index.html) available in the source.
 
 ### Developing
-There's a simple webpack config to get you started. 
+There's a simple webpack config setup to get you started. 
 
 Build / watch
 ```

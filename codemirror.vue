@@ -37,6 +37,12 @@ export default {
         }
       }
     },
+    lintOptions: {
+      type: Object,
+      default: function () {
+        return { sub: true }
+      }
+    }
   },
 
   created () {
@@ -48,7 +54,7 @@ export default {
   },
 
   mounted () {
-    let options = { ...this.options, theme: theme }
+    const options = { ...this.options, lint: this.lintOptions, theme: theme }
     this.editor = CodeMirror.fromTextArea(this.$el, options)
     this.editor.setValue(this.code || this.value || this.content)
 
