@@ -99,5 +99,6 @@ Contributions are welcome for additional options, themes and modes that don't in
 ### Changelog
 #####v3.0.5
 - Added watcher for replaceRange, essentially allowing to replace or insert text at line & ch.
+
 #####v3.0.4 
 - Added lint options for jshint (`.jshintrc`-like)
