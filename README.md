@@ -66,7 +66,8 @@ Usage in template
        lint: true
     }"
     :lintOptions="{
-
+        sub: true,
+        notypeof: true
     }"
     @changed="yourCodeChangeMethod">
 </codemirror>
@@ -94,3 +95,9 @@ Feel free to contribute to the build config and make it better :)
 
 ### Contributing
 Contributions are welcome for additional options, themes and modes that don't increase the bundle size. Ideally, if you want to contribute split your code.
+
+### Changelog
+#####v3.0.5
+- Added watcher for replaceRange, essentially allowing to replace or insert text at line & ch.
+#####v3.0.4 
+- Added lint options for jshint (`.jshintrc`-like)
