@@ -8,16 +8,17 @@ const mode = 'javascript'
 const CodeMirror = require('codemirror/lib/codemirror.js')
 require('codemirror/lib/codemirror.css')
 
-require.ensure([], function(require){
+require.ensure([], function (require) {
   require(`codemirror/theme/${theme}.css`)
   require('codemirror/addon/display/fullscreen.css')
   require('codemirror/addon/display/fullscreen.js')
 })
 
 export default {
-  data: function() {
+  data: function () {
     return {
-      content: ''
+      content: '',
+      editor: null
     }
   },
 
@@ -26,7 +27,7 @@ export default {
     value: String,
     options: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           mode: mode,
           line: true,
@@ -41,6 +42,12 @@ export default {
       type: Object,
       default: function () {
         return { sub: true }
+      }
+    },
+    replaceRange: {
+      type: Object,
+      default: function () {
+        return null
       }
     }
   },
@@ -66,8 +73,11 @@ export default {
       }
     })
 
-    window.JSHINT = require('jshint').JSHINT
+    if (!window.JSHINT) window.JSHINT = require('jshint').JSHINT
   },
+
+  beforeDestroy () { window.JSHINT = null },
+
   watch: {
     code (newVal, oldVal) {
       const editorValue = this.editor.getValue()
@@ -87,6 +97,34 @@ export default {
         this.content = newVal
         this.editor.scrollTo(scrollInfo.left, scrollInfo.top)
       }
+    },
+
+    /**
+     * Replace string from & to a certain range. If `to` is equal to `from` it will just insert a string at that position.
+     * @see https://codemirror.net/doc/manual.html#replaceRange
+     */
+    replaceRange: {
+      handler (newVal, oldVal) {
+        if (newVal && this.editor) {
+          const cursor = this.editor.getCursor()
+          const cursorLineAndCh = {
+            line: cursor.line,
+            ch: cursor.ch
+          }
+          const insert = {
+            ...newVal,
+            from: newVal.from || cursorLineAndCh,
+            to: newVal.from || cursorLineAndCh
+          }
+
+          this.editor.replaceRange(
+            insert.replacement,
+            insert.from,
+            insert.to
+          )
+        }
+      },
+      deep: true
     }
   }
 }
