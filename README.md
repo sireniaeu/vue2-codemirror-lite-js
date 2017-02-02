@@ -98,7 +98,7 @@ Contributions are welcome for additional options, themes and modes that don't in
 
 ### Changelog
 
-#####v3.0.5
+#####v3.0.6
 - Moved to Sireniaeu
 
 #####v3.0.5
