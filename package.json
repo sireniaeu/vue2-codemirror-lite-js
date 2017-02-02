@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/danmindru/vue2-codemirror-lite-js"
+    "url": "https://github.com/sireniaeu/vue2-codemirror-lite-js"
   },
   "keywords": [
     "vue-codemirror",
@@ -27,9 +27,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danmindru/vue2-codemirror-lite-js/issues"
+    "url": "https://github.com/sireniaeu/vue2-codemirror-lite-js/issues"
   },
-  "homepage": "https://github.com/danmindru/vue2-codemirror-lite-js#readme",
+  "homepage": "https://github.com/sireniaeu/vue2-codemirror-lite-js#readme",
   "dependencies": {
     "codemirror": "^5.19.0",
     "jshint": "0.7.3"
