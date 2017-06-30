@@ -1,8 +1,8 @@
 # Vue2 Codemirror Lite
-####[CodeMirror](http://codemirror.net/) component for Vue.js 2.x, configured for linting & js mode only to keep it light. 
+#### [CodeMirror](http://codemirror.net/) component for Vue.js 2.x, configured for linting & js mode only to keep it light. 
 <a href="https://sireniaeu.github.io/vue2-codemirror-lite-js"><img src="https://cloud.githubusercontent.com/assets/1515742/21546469/9d452e38-cde7-11e6-8996-758e0ad9ff7c.jpg" alt="Vue2 Codemirror for JS screenshot"/></a>
 
-####[See demo](https://sireniaeu.github.io/vue2-codemirror-lite-js)
+#### [See demo](https://sireniaeu.github.io/vue2-codemirror-lite-js)
 
 ### Motivation
 For applications that only use CodeMirror for JavaScript, the bundle size can seriously be decreased by eliminating some of the features, themes and modes. 
@@ -14,10 +14,9 @@ Most things are pre-configured (i.e. mode, theme), but additional CodeMirror opt
 ### What's inside
 - JavaScript only mode (not configurable)
 - lint via JSHINT (bundled, not configurable)
-- dark theme only (`base16-dark`, [see demo](https://sireniaeu.github.io/vue2-codemirror-lite-js).)
+- dark theme only (slightly modified `neo`, [see demo](https://sireniaeu.github.io/vue2-codemirror-lite-js).)
 - line numbers, line wrapping
 - accepts additional CodeMirror options ([see some here](http://codemirror.net/doc/manual.html)), except for mode, theme & those that require addons.
-- size: ~255kb / ~84kb gzipped
 
 ### Getting started
 Installing

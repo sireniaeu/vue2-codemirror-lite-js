@@ -1,15 +1,16 @@
 <template>
-<textarea></textarea>
+  <textarea></textarea>
 </template>
 
 <script>
-const theme = 'base16-dark'
+const theme = 'neo'
 const mode = 'javascript'
 const CodeMirror = require('codemirror/lib/codemirror.js')
 require('codemirror/lib/codemirror.css')
 
 require.ensure([], function (require) {
-  require(`codemirror/theme/${theme}.css`)
+  //require(`codemirror/theme/${theme}.css`)
+  require(`./themes/${theme}.css`)
   require('codemirror/addon/display/fullscreen.css')
   require('codemirror/addon/display/fullscreen.js')
 })
@@ -58,6 +59,7 @@ export default {
     require('codemirror/addon/lint/lint.js')
     require('codemirror/addon/lint/lint.css')
     require('codemirror/addon/lint/javascript-lint.js')
+    require('codemirror/addon/selection/active-line.js')
   },
 
   mounted () {
@@ -132,7 +134,7 @@ export default {
 
 <style scoped>
 .CodeMirror-code {
-  line-height: 1.6em;
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  /*line-height: 1.6em;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;*/
 }
 </style>
