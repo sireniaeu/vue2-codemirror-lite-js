@@ -6,7 +6,7 @@
   background-color:#ffffff;
   color:#2e383c;
   line-height:1.5;
-  font-family: "Source Code Pro", Menlo, Monaco, Consolas;
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas, monospace;
   font-size: .9em;
 }
 .cm-s-neo .cm-comment { color:#75787b; }
