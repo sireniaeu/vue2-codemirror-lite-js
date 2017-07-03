@@ -4,7 +4,7 @@
 
 <script>
 const theme = 'neo'
-const mode = 'javascript'
+const mode = { name: 'javascript', globalVars: true }
 const CodeMirror = require('codemirror/lib/codemirror.js')
 require('codemirror/lib/codemirror.css')
 
@@ -29,10 +29,11 @@ export default {
     options: {
       type: Object,
       default: function () {
-        return {
+        return { 
+          extraKeys: {"Ctrl-Space": "autocomplete"},
           mode: mode,
           line: true,
-          lineNumbers: true,
+          lineNumbers: false,
           lineWrapping: true,
           lint: true,
           gutters: ['CodeMirror-linenumbers', 'CodeMirror-lint-markers']
@@ -44,6 +45,10 @@ export default {
       default: function () {
         return { sub: true }
       }
+    },
+    completions: {
+      type: Function,
+      default: (word) => {}
     },
     replaceRange: {
       type: Object,
@@ -59,10 +64,30 @@ export default {
     require('codemirror/addon/lint/lint.js')
     require('codemirror/addon/lint/lint.css')
     require('codemirror/addon/lint/javascript-lint.js')
-    require('codemirror/addon/selection/active-line.js')
+    require('codemirror/addon/hint/show-hint.js')
+    require('codemirror/addon/hint/javascript-hint.js')
   },
 
   mounted () {
+    this.options.hintOptions = {
+      hint: (cm, options) => {
+        let cursor = cm.getCursor(), line = cm.getLine(cursor.line)
+        let start = cursor.ch, end = cursor.ch
+        while (start && /\w/.test(line.charAt(start - 1))) --start
+        while (end < line.length && /\w/.test(line.charAt(end))) ++end
+        let word = line.slice(start, end)
+
+        // Completions from props
+        let suggestions = this.completions(word)
+
+        return {
+          list: suggestions,
+          from: CodeMirror.Pos(cursor.line, start),
+          to: CodeMirror.Pos(cursor.line, end)
+        }
+      }
+    }
+
     const options = { ...this.options, lint: this.lintOptions, theme: theme }
     this.editor = CodeMirror.fromTextArea(this.$el, options)
     this.editor.setValue(this.code || this.value || this.content)
