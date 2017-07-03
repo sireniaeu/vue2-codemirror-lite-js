@@ -33,7 +33,7 @@ export default {
           extraKeys: {"Ctrl-Space": "autocomplete"},
           mode: mode,
           line: true,
-          lineNumbers: false,
+          lineNumbers: true,
           lineWrapping: true,
           lint: true,
           gutters: ['CodeMirror-linenumbers', 'CodeMirror-lint-markers']
