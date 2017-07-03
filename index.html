@@ -9,7 +9,11 @@
     <h1>Lightweight Vue2 CodeMirror plugin</h1>
     <p>Pre-configured for JavaScript mode only, with linting & gutter errors / warnings on.</p>
     <main v-cloak id="app">
-      <codemirror :code="code" @changed="changed" :options="options"></codemirror>
+      <codemirror 
+        :code="code" 
+        @changed="changed"
+        :completions="completeme"
+      ></codemirror>
     </main>
 
     <h2>What's inside</h2>
@@ -47,6 +51,7 @@
             code: code,
             options: {
               tabSize: 2,
+              extraKeys: {"Ctrl-Space": "autocomplete"},
               lineNumbers: true,
               lineWrapping: true,
               line: true,
@@ -57,6 +62,21 @@
         },
 
         methods: {
+          completeme: function (cm, options, pos) {
+            let cursor = cm.getCursor(), line = cm.getLine(cursor.line)
+            let start = cursor.ch, end = cursor.ch
+            while (start && /\w/.test(line.charAt(start - 1))) --start
+            while (end < line.length && /\w/.test(line.charAt(end))) ++end
+            var word = line.slice(start, end)
+            debugger
+            if ("Fields[".startsWith(word)) {
+              return { 
+                list: ["a", "b", "c"],
+                from: pos(cursor.line, start),
+                to: pos(cursor.line, end)
+              }
+            }
+          },
           changed: function (code) {
             console.log('changed', code)
           }
