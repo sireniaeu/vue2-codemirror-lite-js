@@ -64,6 +64,7 @@ export default {
     require('codemirror/addon/lint/lint.js')
     require('codemirror/addon/lint/lint.css')
     require('codemirror/addon/lint/javascript-lint.js')
+    require('codemirror/addon/hint/show-hint.css')
     require('codemirror/addon/hint/show-hint.js')
     require('codemirror/addon/hint/javascript-hint.js')
   },
