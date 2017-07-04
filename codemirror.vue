@@ -74,8 +74,8 @@ export default {
       hint: (cm, options) => {
         let cursor = cm.getCursor(), line = cm.getLine(cursor.line)
         let start = cursor.ch, end = cursor.ch
-        while (start && /\w/.test(line.charAt(start - 1))) --start
-        while (end < line.length && /\w/.test(line.charAt(end))) ++end
+        while (start && /[\wæøåÆØÅ]/.test(line.charAt(start - 1))) --start
+        while (end < line.length && /[\wæøåÆØÅ]/.test(line.charAt(end))) ++end
         let word = line.slice(start, end)
 
         // Completions from props
