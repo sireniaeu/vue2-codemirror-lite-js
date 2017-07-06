@@ -58,6 +58,23 @@ export default {
     }
   },
 
+  methods: {
+    cursorContext (cm) {
+      let cursor = cm.getCursor(), line = cm.getLine(cursor.line)
+      let start = cursor.ch, end = cursor.ch
+      while (start && /[\wæøåÆØÅ]/.test(line.charAt(start - 1))) --start
+      while (end < line.length && /[\wæøåÆØÅ]/.test(line.charAt(end))) ++end
+      let word = line.slice(start, end)
+
+      return {
+        word,
+        start,
+        end,
+        line: cursor.line
+      }
+    }
+  },
+
   created () {
     // Require language mode config & basic addons.
     require(`codemirror/mode/javascript/javascript.js`)
@@ -72,19 +89,15 @@ export default {
   mounted () {
     this.options.hintOptions = {
       hint: (cm, options) => {
-        let cursor = cm.getCursor(), line = cm.getLine(cursor.line)
-        let start = cursor.ch, end = cursor.ch
-        while (start && /[\wæøåÆØÅ]/.test(line.charAt(start - 1))) --start
-        while (end < line.length && /[\wæøåÆØÅ]/.test(line.charAt(end))) ++end
-        let word = line.slice(start, end)
-
+        // Get cursor context
+        let c = this.cursorContext(cm)
         // Completions from props
-        let suggestions = this.completions(word)
+        let suggestions = this.completions(c.word)
 
         return {
           list: suggestions,
-          from: CodeMirror.Pos(cursor.line, start),
-          to: CodeMirror.Pos(cursor.line, end)
+          from: CodeMirror.Pos(c.line, c.start),
+          to: CodeMirror.Pos(c.line, c.end)
         }
       }
     }
@@ -98,6 +111,12 @@ export default {
       if (!!this.$emit) {
         this.$emit('changed', this.content)
         this.$emit('input', this.content)
+      }
+    })
+
+    this.editor.on('cursorActivity', (cm) => {
+      if (!!this.$emit) {
+        this.$emit('cursor', this.cursorContext(cm))
       }
     })
 
