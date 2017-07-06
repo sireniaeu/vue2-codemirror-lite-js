@@ -161,7 +161,7 @@ export default {
           const insert = {
             ...newVal,
             from: newVal.from || cursorLineAndCh,
-            to: newVal.from || cursorLineAndCh
+            to: newVal.to || cursorLineAndCh
           }
 
           this.editor.replaceRange(
