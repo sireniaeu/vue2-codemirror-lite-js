@@ -54,3 +54,7 @@ div.CodeMirror-lint-tooltip {
   margin: 5px;
   font-family: "Source Code Pro", Menlo, Monaco, Consolas, monspace;
 }
+
+.cm-matchhighlight {
+  background-color: yellow;
+}
