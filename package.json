@@ -1,6 +1,6 @@
 {
   "name": "vue2-codemirror-lite-js",
-  "version": "3.4.8",
+  "version": "3.5.0",
   "description": "Lite Codemirror component for JavaScript code / Vue.js 2.x",
   "main": "index.js",
   "scripts": {
