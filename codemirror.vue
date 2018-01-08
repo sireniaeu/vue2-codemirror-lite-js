@@ -243,8 +243,3 @@ export default {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;*/
 }
 </style>
-odeMirror-code {
-  /*line-height: 1.6em;
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;*/
-}
-</style>
