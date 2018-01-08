@@ -7,6 +7,7 @@ const theme = 'neo'
 const mode = { name: 'javascript', globalVars: true }
 const CodeMirror = require('codemirror/lib/codemirror.js')
 require('codemirror/lib/codemirror.css')
+var beautify = require('js-beautify').js_beautify
 
 require.ensure([], function (require) {
   //require(`codemirror/theme/${theme}.css`)
@@ -19,7 +20,8 @@ export default {
   data: function () {
     return {
       content: '',
-      editor: null
+      editor: null,
+      keyMap: { 'Ctrl-Space': 'autocomplete', "Enter": this.onEnterBeautify }
     }
   },
 
@@ -30,13 +32,18 @@ export default {
       type: Object,
       default: function () {
         return { 
-          extraKeys: {"Ctrl-Space": "autocomplete"},
+          extraKeys: this.keyMap,
           mode: mode,
           line: true,
           lineNumbers: true,
           lineWrapping: true,
           lint: true,
-          gutters: ['CodeMirror-linenumbers', 'CodeMirror-lint-markers']
+          gutters: ['CodeMirror-linenumbers', 'CodeMirror-lint-markers'],
+          highlightSelectionMatches: { minChars: 1 },
+          matchBrackets: true,
+          autoCloseBrackets: true,
+          styleActiveLine: true
+
         }
       }
     },
@@ -72,6 +79,54 @@ export default {
         end,
         line: cursor.line
       }
+    },
+
+    onEnterBeautify() {
+      let cursor = this.editor.getCursor()
+      let cursorLineIndex = cursor.line
+      let cursorCharIndex = cursor.ch
+      let isCursorLinePrecededOnlyWithEmptyLines = this.isLinePrecededOnlyWithEmptyLines(cursorLineIndex)
+
+      let lastCharacterBeforeCursor = this.getLastCharacterBeforeCursor(cursorLineIndex, cursorCharIndex)
+      
+      if(this.shouldBeautifyCode(cursorLineIndex, lastCharacterBeforeCursor, isCursorLinePrecededOnlyWithEmptyLines)){
+        this.beautifyCode(cursorLineIndex, lastCharacterBeforeCursor, isCursorLinePrecededOnlyWithEmptyLines)
+      }
+
+      return CodeMirror.Pass;
+    },
+
+    shouldBeautifyCode(cursorLineIndex, lastCharacterBeforeCursor, isCursorLinePrecededOnlyWithEmptyLines) {
+      let lastLineIndex = this.editor.lineCount()-1
+      return ((cursorLineIndex < lastLineIndex && (!isCursorLinePrecededOnlyWithEmptyLines || lastCharacterBeforeCursor))) 
+         || (cursorLineIndex===lastLineIndex && this.editor.getLine(cursorLineIndex)!=="")
+    },
+
+    getLastCharacterBeforeCursor(cursorLineIndex, cursorCharIndex) {
+      let lastCharacterBeforeCursor = this.editor.getLine(cursorLineIndex)[cursorCharIndex-1]
+      if(cursorCharIndex !== 0 && (!lastCharacterBeforeCursor || !lastCharacterBeforeCursor.trim())){
+        lastCharacterBeforeCursor = this.editor.getLine(cursorLineIndex).trim().slice(-1)
+      }
+      return lastCharacterBeforeCursor
+    },
+
+    isLinePrecededOnlyWithEmptyLines(lineNumber) {
+      for(let i = 0; i<lineNumber; i++) {
+        if(this.editor.getLine(i) && this.editor.getLine(i).trim())
+          return false
+      }
+      return true
+    },
+
+    beautifyCode (cursorLineIndex, lastCharacterBeforeCursor, isCursorLinePrecededOnlyWithEmptyLines) {
+      let beautifiedCode = beautify(this.editor.getValue(), {"end_with_newline": true,  "preserve_newlines": true, "max_preserve_newlines": 100, "indent_size": 2})
+
+      let newCursorLineIndex = isCursorLinePrecededOnlyWithEmptyLines ? 0 : cursorLineIndex
+      let newCursorCharIndex = lastCharacterBeforeCursor ? beautifiedCode.split('\n')[newCursorLineIndex].lastIndexOf(lastCharacterBeforeCursor) + 1 : 0
+
+      this.editor.setValue(beautifiedCode)
+      this.editor.focus()
+      this.editor.setCursor({line: newCursorLineIndex, ch: newCursorCharIndex})
     }
   },
 
@@ -84,6 +139,10 @@ export default {
     require('codemirror/addon/hint/show-hint.css')
     require('codemirror/addon/hint/show-hint.js')
     require('codemirror/addon/hint/javascript-hint.js')
+    require('codemirror/addon/edit/closebrackets.js')
+    require('codemirror/addon/search/match-highlighter.js')
+    require('codemirror/addon/selection/active-line.js')
+    require('codemirror/addon/edit/matchbrackets.js')
   },
 
   mounted () {
@@ -105,6 +164,7 @@ export default {
     const options = { ...this.options, lint: this.lintOptions, theme: theme }
     this.editor = CodeMirror.fromTextArea(this.$el, options)
     this.editor.setValue(this.code || this.value || this.content)
+    this.editor.addKeyMap(this.keyMap)
 
     this.editor.on('change', (cm) => {
       this.content = cm.getValue()
