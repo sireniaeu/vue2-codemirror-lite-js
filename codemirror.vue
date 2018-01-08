@@ -20,7 +20,8 @@ export default {
   data: function () {
     return {
       content: '',
-      editor: null
+      editor: null,
+      keyMap: { 'Ctrl-Space': 'autocomplete', "Enter": this.onEnterBeautify }
     }
   },
 
@@ -31,7 +32,7 @@ export default {
       type: Object,
       default: function () {
         return { 
-          extraKeys: {'Ctrl-Space': 'autocomplete', "Enter": this.onEnterBeautify},
+          extraKeys: this.keyMap,
           mode: mode,
           line: true,
           lineNumbers: true,
@@ -142,7 +143,6 @@ export default {
     require('codemirror/addon/search/match-highlighter.js')
     require('codemirror/addon/selection/active-line.js')
     require('codemirror/addon/edit/matchbrackets.js')
-
   },
 
   mounted () {
@@ -164,7 +164,7 @@ export default {
     const options = { ...this.options, lint: this.lintOptions, theme: theme }
     this.editor = CodeMirror.fromTextArea(this.$el, options)
     this.editor.setValue(this.code || this.value || this.content)
-    this.editor.addKeyMap({"Ctrl-Space": this.autocomplete, "Enter": this.onEnterBeautify})
+    this.editor.addKeyMap(this.keyMap)
 
     this.editor.on('change', (cm) => {
       this.content = cm.getValue()
