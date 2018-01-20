@@ -81,6 +81,11 @@ export default {
       }
     },
 
+    clearEditorHistory () {
+      this.editor.setValue('')
+      this.editor.clearHistory()
+    },
+
     onEnterBeautify() {
       let cursor = this.editor.getCursor()
       let cursorLineIndex = cursor.line
