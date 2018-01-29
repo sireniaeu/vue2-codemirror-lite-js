@@ -89,13 +89,13 @@ export default {
     beautifyCode () {
       let beautifiedCode = beautify(this.editor.getValue(), {"end_with_newline": true,  "preserve_newlines": true, "max_preserve_newlines": 100, "indent_size": 2})
 
-      let cursorPosition = this.determineCoursorPosition()
+      let cursorPosition = this.determineCursorPosition()
       this.editor.setValue(beautifiedCode)
       this.editor.focus()
       this.editor.setCursor({line: cursorPosition.line, ch: cursorPosition.ch})
     },
 
-    determineCoursorPosition () {
+    determineCursorPosition () {
       let cursor = this.editor.getCursor()
       return {line: cursor.line - this.emptyLinesAtTheBeginningCount(), ch: cursor.ch}
     },
