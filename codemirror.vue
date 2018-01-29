@@ -93,8 +93,6 @@ export default {
       this.editor.setValue(beautifiedCode)
       this.editor.focus()
       this.editor.setCursor({line: cursorPosition.line, ch: cursorPosition.ch})
-
-      return CodeMirror.Pass;
     },
 
     determineCoursorPosition () {
