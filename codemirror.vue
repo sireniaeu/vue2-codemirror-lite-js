@@ -21,7 +21,7 @@ export default {
     return {
       content: '',
       editor: null,
-      keyMap: { 'Ctrl-Space': 'autocomplete', "Enter": this.onEnterBeautify }
+      keyMap: { 'Ctrl-Space': 'autocomplete'}
     }
   },
 
@@ -86,54 +86,32 @@ export default {
       this.editor.clearHistory()
     },
 
-    onEnterBeautify() {
-      let cursor = this.editor.getCursor()
-      let cursorLineIndex = cursor.line
-      let cursorCharIndex = cursor.ch
-      let isCursorLinePrecededOnlyWithEmptyLines = this.isLinePrecededOnlyWithEmptyLines(cursorLineIndex)
-
-      let lastCharacterBeforeCursor = this.getLastCharacterBeforeCursor(cursorLineIndex, cursorCharIndex)
-      
-      if(this.shouldBeautifyCode(cursorLineIndex, lastCharacterBeforeCursor, isCursorLinePrecededOnlyWithEmptyLines)){
-        this.beautifyCode(cursorLineIndex, lastCharacterBeforeCursor, isCursorLinePrecededOnlyWithEmptyLines)
-      }
-
-      return CodeMirror.Pass;
-    },
-
-    shouldBeautifyCode(cursorLineIndex, lastCharacterBeforeCursor, isCursorLinePrecededOnlyWithEmptyLines) {
-      let lastLineIndex = this.editor.lineCount()-1
-      return ((cursorLineIndex < lastLineIndex && (!isCursorLinePrecededOnlyWithEmptyLines || lastCharacterBeforeCursor))) 
-         || (cursorLineIndex===lastLineIndex && this.editor.getLine(cursorLineIndex)!=="")
-    },
-
-    getLastCharacterBeforeCursor(cursorLineIndex, cursorCharIndex) {
-      let lastCharacterBeforeCursor = this.editor.getLine(cursorLineIndex)[cursorCharIndex-1]
-      if(cursorCharIndex !== 0 && (!lastCharacterBeforeCursor || !lastCharacterBeforeCursor.trim())){
-        lastCharacterBeforeCursor = this.editor.getLine(cursorLineIndex).trim().slice(-1)
-      }
-      return lastCharacterBeforeCursor
-    },
-
-    isLinePrecededOnlyWithEmptyLines(lineNumber) {
-      for(let i = 0; i<lineNumber; i++) {
-        if(this.editor.getLine(i) && this.editor.getLine(i).trim())
-          return false
-      }
-      return true
-    },
-
-    beautifyCode (cursorLineIndex, lastCharacterBeforeCursor, isCursorLinePrecededOnlyWithEmptyLines) {
+    beautifyCode () {
       let beautifiedCode = beautify(this.editor.getValue(), {"end_with_newline": true,  "preserve_newlines": true, "max_preserve_newlines": 100, "indent_size": 2})
 
-      let newCursorLineIndex = isCursorLinePrecededOnlyWithEmptyLines ? 0 : cursorLineIndex
-      let newCursorCharIndex = lastCharacterBeforeCursor ? beautifiedCode.split('\n')[newCursorLineIndex].lastIndexOf(lastCharacterBeforeCursor) + 1 : 0
-
+      let cursorPosition = this.determineCursorPosition()
       this.editor.setValue(beautifiedCode)
       this.editor.focus()
-      this.editor.setCursor({line: newCursorLineIndex, ch: newCursorCharIndex})
+      this.editor.setCursor({line: cursorPosition.line, ch: cursorPosition.ch})
+    },
+
+    determineCursorPosition () {
+      let cursor = this.editor.getCursor()
+      return {line: cursor.line - this.emptyLinesAtTheBeginningCount(), ch: cursor.ch}
+    },
+
+    emptyLinesAtTheBeginningCount () {
+      let emptyLinesNumber = 0
+      for(let i = 0; i < this.editor.lineCount(); i++) {
+        if (!this.editor.getLine(i) || !this.editor.getLine(i).trim()) {
+          emptyLinesNumber++
+        } else {
+          return emptyLinesNumber
+        }
+      }
     }
   },
+
 
   created () {
     // Require language mode config & basic addons.
