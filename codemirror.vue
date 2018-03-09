@@ -194,11 +194,11 @@ export default {
     },
     readonly () {
       this.editor.setOption("readOnly", this.readonly)
+      let codeMirrorEl = document.querySelector('.CodeMirror-wrap', this.$el.parentElement)
       if (this.readonly) {
-        document.getElementsByClassName('CodeMirror-wrap')[0].className += ' readonly'
+        codeMirrorEl.className += ' readonly'
       } else {
-        let codeMirror = document.getElementsByClassName('CodeMirror-wrap')[0]
-        codeMirror.className = codeMirror.className.replace('readonly', '')
+        codeMirrorEl.className = codeMirrorEl.className.replace('readonly', '')
       }
     },
 
