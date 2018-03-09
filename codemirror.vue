@@ -28,12 +28,17 @@ export default {
   props: {
     code: String,
     value: String,
+    readonly: {
+      type: Boolean,
+      default: () => false
+    },
     options: {
       type: Object,
       default: function () {
-        return { 
+        return {
           extraKeys: this.keyMap,
           mode: mode,
+          readOnly: this.readonly,
           line: true,
           lineNumbers: true,
           lineWrapping: true,
@@ -43,7 +48,6 @@ export default {
           matchBrackets: true,
           autoCloseBrackets: true,
           styleActiveLine: true
-
         }
       }
     },
@@ -186,6 +190,15 @@ export default {
         this.editor.setValue(newVal)
         this.content = newVal
         this.editor.scrollTo(scrollInfo.left, scrollInfo.top)
+      }
+    },
+    readonly () {
+      this.editor.setOption("readOnly", this.readonly)
+      let codeMirrorEl = document.querySelector('.CodeMirror-wrap', this.$el.parentElement)
+      if (this.readonly) {
+        codeMirrorEl.classList.add('readonly')
+      } else {
+        codeMirrorEl.classList.remove('readonly')
       }
     },
 
