@@ -21,7 +21,8 @@ export default {
     return {
       content: '',
       editor: null,
-      keyMap: { 'Ctrl-Space': 'autocomplete'}
+      keyMap: { 'Ctrl-Space': 'autocomplete'},
+      changesCounter: 0
     }
   },
 
@@ -113,6 +114,14 @@ export default {
           return emptyLinesNumber
         }
       }
+    },
+
+    updateChangesCounter (changeOrigin) {
+      if (changeOrigin === 'undo') {
+        this.changesCounter--
+      } else {
+        this.changesCounter++
+      }
     }
   },
 
@@ -153,7 +162,15 @@ export default {
     this.editor.setValue(this.code || this.value || this.content)
     this.editor.addKeyMap(this.keyMap)
 
-    this.editor.on('change', (cm) => {
+    this.editor.on('beforeChange', (cm, changeObj) => {
+      if (changeObj.origin === 'undo' && this.changesCounter === 1) {
+        changeObj.cancel()
+      }
+    })
+
+    this.editor.on('change', (cm, changeObj) => {
+      this.updateChangesCounter(changeObj.origin)
+      this.firstLoaded = false
       this.content = cm.getValue()
       if (!!this.$emit) {
         this.$emit('changed', this.content)
