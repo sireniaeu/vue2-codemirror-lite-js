@@ -88,6 +88,7 @@ export default {
 
     clearEditorHistory () {
       this.editor.setValue('')
+      this.changesCounter = 0
       this.editor.clearHistory()
     },
 
