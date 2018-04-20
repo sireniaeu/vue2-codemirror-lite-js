@@ -188,7 +188,10 @@ export default {
     if (!window.JSHINT) window.JSHINT = require('jshint').JSHINT
   },
 
-  beforeDestroy () { window.JSHINT = null },
+  beforeDestroy () { 
+    window.JSHINT = null
+    this.editor.getWrapperElement().remove()
+  },
 
   watch: {
     code (newVal, oldVal) {
