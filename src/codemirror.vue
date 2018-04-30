@@ -9,12 +9,11 @@ const CodeMirror = require('codemirror/lib/codemirror.js')
 require('codemirror/lib/codemirror.css')
 var beautify = require('js-beautify').js_beautify
 
-require.ensure([], function (require) {
-  //require(`codemirror/theme/${theme}.css`)
-  require(`./themes/${theme}.css`)
-  require('codemirror/addon/display/fullscreen.css')
-  require('codemirror/addon/display/fullscreen.js')
-})
+//require(`codemirror/theme/${theme}.css`)
+require(`../themes/${theme}.css`)
+require('codemirror/addon/display/fullscreen.css')
+require('codemirror/addon/display/fullscreen.js')
+
 
 export default {
   data: function () {

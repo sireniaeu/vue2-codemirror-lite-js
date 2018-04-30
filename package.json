@@ -1,12 +1,13 @@
 {
   "name": "vue2-codemirror-lite-js",
-  "version": "3.5.8",
+  "version": "3.5.9",
   "description": "Lite Codemirror component for JavaScript code / Vue.js 2.x",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "serve": "node_modules/.bin/webpack-dev-server --open",
-    "build": "webpack --config webpack.config.js --watch",
-    "deploy": "git push origin `git subtree split --prefix demo master`:gh-pages --force"
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack --config webpack.config.js && node_modules/.bin/webpack-dev-server --open --watch",
+    "deploy": "git push origin `git subtree split --prefix demo master`:gh-pages --force",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -46,7 +47,7 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "style-loader": "^0.13.1",
     "vue-loader": "^10.0.2",
-    "vue-template-compiler": "^2.1.8",
+    "vue-template-compiler": "^2.5.16",
     "webpack": "v2.6.0",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-server": "^1.16.2"
