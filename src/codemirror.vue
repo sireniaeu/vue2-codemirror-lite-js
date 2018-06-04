@@ -139,6 +139,11 @@ export default {
     require('codemirror/addon/search/match-highlighter.js')
     require('codemirror/addon/selection/active-line.js')
     require('codemirror/addon/edit/matchbrackets.js')
+    require('codemirror/addon/search/search.js')
+    require('codemirror/addon/search/searchcursor.js')
+    require('codemirror/addon/search/jump-to-line.js')
+    require('codemirror/addon/dialog/dialog.js')
+    require('codemirror/addon/dialog/dialog.css')
   },
 
   mounted () {
